@@ -32,7 +32,7 @@ class App extends React.Component{
             <div className="app">
                 <MovieAppHeader updateMovieState = {this.updateMovieState}/>
                 {
-                      this.state.movie != null && this.state.movie?.Response == "True" &&
+                      this.state.movie != null && this.state.movie?.Response === "True" &&
                         <Movie movie={this.state.movie} trailer={this.state.trailer}/>
                 }
             </div>

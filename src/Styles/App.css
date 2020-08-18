@@ -7,12 +7,6 @@
     /* margin-left: 38%; */
 }
 
-.MovieAppHeader input{
-    color: rebeccapurple;
-    /* margin-left: 31%; */
-    /* width: 40%; */
-}
-
 #sub1{
     /* margin-left: 48%; */
     /* width: 6%; */
@@ -44,5 +38,9 @@
 .MovieBriefInfoBox {
     height:10%;
     
+}
+
+body{
+    background-image: url("../images/17580.jpg");
 }
 

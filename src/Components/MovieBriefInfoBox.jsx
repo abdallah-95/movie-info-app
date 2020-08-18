@@ -7,7 +7,7 @@ export default class MovieBriefInfoBox extends Component {
             <div className="container w-100 MovieBriefInfoBox">
               <div className="row">
                   <div className="col-1 mr-2 pl-1">
-                      <img src={require('../images/star.png')} alt="star"/>
+                      <img src={require('../images/star-removebg-preview.png')} alt="star"/>
                   </div>
                   <div className="col-2 pl-1">
                   <span>{this.props.movie.imdbRating}/10</span>  

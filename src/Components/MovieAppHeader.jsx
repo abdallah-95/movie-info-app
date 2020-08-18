@@ -29,7 +29,7 @@ class MovieAppHeader extends React.Component{
             method:"Get"
         }).then(response => response.json());
 
-        if(response.Response == "False"){
+        if(response.Response === "False"){
             this.setState({movieFound:false})
         }else
             this.setState({movieFound:true})
@@ -44,7 +44,7 @@ class MovieAppHeader extends React.Component{
                                     method:"Get"
                                     }).then(response => response.json());
         
-        return response.items[0].id.videoId;;
+        return response.error == null ? response.items[0].id.videoId : null;
     }
 
     handleMovieNameTextBoxOnChange = (e) => {
@@ -66,11 +66,11 @@ class MovieAppHeader extends React.Component{
                     <div className="form-inline">
                         <h3 className="col-12 p-1">What is this movie?</h3>
                         <div className="input-group">
-                            <input type="text" placeholder="Title" className={`col-12 form-control  ${this.state.movieFound == true ? 'is-valid'  : this.state.movieFound == false ? 'is-invalid':''}`} onChange={this.handleMovieNameTextBoxOnChange} required/><br/>
+                            <input type="text" placeholder="Title" className={`col-12 form-control  ${this.state.movieFound === true ? 'is-valid'  : this.state.movieFound === false ? 'is-invalid':''}`} onChange={this.handleMovieNameTextBoxOnChange} required/><br/>
                             <input type="text" placeholder="Year" className="col-3 form-control" onChange={this.handleMovieYearTextBoxOnChange}/><br/>
                         </div>
                         <input type="submit" value="Search" id="sub1" className="form-control col-sm-1 ml-3 btn btn-primary"/>
-                        <div class="invalid-feedback" style={this.state.movieFound == false ? {display:"block"} : {display:"none"} }>
+                        <div class="invalid-feedback" style={this.state.movieFound === false ? {display:"block"} : {display:"none"} }>
                           Movie Not Found!
                         </div>
                     </div>
