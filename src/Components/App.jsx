@@ -1,6 +1,7 @@
 import React from 'react'
 import MovieAppHeader from './MovieAppHeader'
 import Movie from './Movie'
+import FooterMovie from './FooterMovie'
 
 class App extends React.Component{
 
@@ -8,7 +9,8 @@ class App extends React.Component{
         super();
         this.state = {
             movie:null,
-            trailer:null
+            trailer:null,
+            previousMovies:[]
         }
     }
 
@@ -24,10 +26,22 @@ class App extends React.Component{
 
     updateMovieState = (movieData,trailerVideoID) => {
         debugger;
-        this.setState({movie:movieData,trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`})
+
+        let prevMovies = this.state.previousMovies;
+        prevMovies.push({
+            movie:movieData,
+           trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
+           });
+
+        this.setState({movie:movieData,
+                       trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
+                       previousMovies: prevMovies
+                    })
     }
 
     render(){
+        debugger;
+
         return(
             <div className="app">
                 <MovieAppHeader updateMovieState = {this.updateMovieState}/>
@@ -35,6 +49,20 @@ class App extends React.Component{
                       this.state.movie != null && this.state.movie?.Response === "True" &&
                         <Movie movie={this.state.movie} trailer={this.state.trailer}/>
                 }
+                {/* <MovieAppFooter currentMovie={this.state.movie}/> */}
+
+                <div className="container testimonial-group m-5">
+                <h3>{this.state.footer}</h3>
+                <div className="row">
+                    {this.state.previousMovies.map(prevMovie => 
+                    <div className="col-3">
+                    <FooterMovie moviePoster={prevMovie.movie?.Poster} 
+                                movieTrailer={prevMovie.trailer}
+                    />
+                    </div>)
+                    }
+                </div>
+            </div>
             </div>
         );
     }

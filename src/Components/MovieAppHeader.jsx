@@ -70,7 +70,7 @@ class MovieAppHeader extends React.Component{
                             <input type="text" placeholder="Year" className="col-3 form-control" onChange={this.handleMovieYearTextBoxOnChange}/><br/>
                         </div>
                         <input type="submit" value="Search" id="sub1" className="form-control col-sm-1 ml-3 btn btn-primary"/>
-                        <div class="invalid-feedback" style={this.state.movieFound === false ? {display:"block"} : {display:"none"} }>
+                        <div className="invalid-feedback" style={this.state.movieFound === false ? {display:"block"} : {display:"none"} }>
                           Movie Not Found!
                         </div>
                     </div>

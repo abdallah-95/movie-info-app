@@ -1,21 +1,8 @@
-.MovieAppHeader{
-    /* margin-top: 3%; */
-}
-
-.MovieAppHeader h1{
-    color: rebeccapurple;
-    /* margin-left: 38%; */
-}
-
 #sub1{
     /* margin-left: 48%; */
     /* width: 6%; */
     color: white;
 }
-
-/* .movie{
-  margin: 3%;
-} */
 
 .app{
     width: 90%;
@@ -42,5 +29,10 @@
 
 body{
     background-image: url("../images/17580.jpg");
+}
+
+.testimonial-group > .row {
+    overflow-x: auto;
+    flex-wrap: nowrap;
 }
 
