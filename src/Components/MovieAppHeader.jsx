@@ -16,16 +16,10 @@ class MovieAppHeader extends React.Component{
         debugger;
         e.preventDefault();   
 
-        // var response = await fetch("http://www.omdbapi.com/?apikey=457a95d2&t='Guardians of the Galaxy Vol. 2'",{
-        //         method:"Get"
-        //     });
-        // var json = await response.json();
-        // this.setState({movie:json});
-        // console.log(json);
         if(this.state.movieName == null)
             return null;
 
-        var response = await fetch(`http://www.omdbapi.com/?apikey=457a95d2&t=${this.state.movieName}&y=${this.state.movieYear}`,{
+        var response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&t=${this.state.movieName}&y=${this.state.movieYear}`,{
             method:"Get"
         }).then(response => response.json());
 
