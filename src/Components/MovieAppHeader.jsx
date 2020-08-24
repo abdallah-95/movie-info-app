@@ -29,18 +29,19 @@ class MovieAppHeader extends React.Component{
             method:"Get"
         }).then(response => response.json());
 
+        var trailerVideoID = null;
         if(response.Response === "False"){
             this.setState({movieFound:false})
-        }else
+        }
+        else{
             this.setState({movieFound:true})
-
-
-        var trailerVideoID = await this.getMovieTrailerVideoID(response.Title,this.state.movieYear);
+            trailerVideoID = await this.getMovieTrailerVideoID(response.Title,this.state.movieYear);
+        }
         this.props.updateMovieState(response,trailerVideoID);
     }
 
      getMovieTrailerVideoID = async (movieName, releaseDate) => {
-        let response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCzkXD6Mo9bs4Rmc_baZ9QADnW9_8afNCI&q=${movieName} trailer ${releaseDate != null ? releaseDate : ''}`,{
+        let response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.REACT_APP_Google_API_KEY}&q=${movieName} trailer ${releaseDate != null ? releaseDate : ''}`,{
                                     method:"Get"
                                     }).then(response => response.json());
         

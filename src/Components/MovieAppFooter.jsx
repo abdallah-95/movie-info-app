@@ -11,7 +11,7 @@ export default class MovieAppFooter extends React.Component{
 
     render(){
         return(
-            <div className="container testimonial-group m-5">
+            <div className="container previous-movies-group m-5">
                 <h3>{this.state.footer}</h3>
                 <div className="row">
                     {this.state.prviousMovies.map(prevMovie => 

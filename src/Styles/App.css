@@ -31,8 +31,16 @@ body{
     background-image: url("../images/17580.jpg");
 }
 
-.testimonial-group > .row {
+.previous-movies-group > .row {
     overflow-x: auto;
     flex-wrap: nowrap;
 }
+.previous-movies-group img {
+    max-width: 120px;
+}
 
+.previous-movies-group img:hover{ 
+    position: relative; 
+    top: -10px;
+    cursor: pointer;
+} 

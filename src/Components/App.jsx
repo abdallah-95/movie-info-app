@@ -28,15 +28,29 @@ class App extends React.Component{
         debugger;
 
         let prevMovies = this.state.previousMovies;
-        prevMovies.push({
-            movie:movieData,
+        if(movieData.Response !== "False"){
+        prevMovies.unshift({
+           movie:movieData,
            trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
            });
-
+        }
         this.setState({movie:movieData,
                        trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
                        previousMovies: prevMovies
                     })
+    }
+
+    onPrevMovieClick = (prevMovie, trailer) => {
+        debugger;
+        this.setState({movie:prevMovie,
+                       trailer:trailer
+                      });
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+
     }
 
     render(){
@@ -50,19 +64,23 @@ class App extends React.Component{
                         <Movie movie={this.state.movie} trailer={this.state.trailer}/>
                 }
                 {/* <MovieAppFooter currentMovie={this.state.movie}/> */}
-
-                <div className="container testimonial-group m-5">
-                <h3>{this.state.footer}</h3>
-                <div className="row">
-                    {this.state.previousMovies.map(prevMovie => 
-                    <div className="col-3">
-                    <FooterMovie moviePoster={prevMovie.movie?.Poster} 
-                                movieTrailer={prevMovie.trailer}
-                    />
-                    </div>)
-                    }
+                
+                {
+                this.state.movie != null && this.state.movie?.Response === "True" &&
+                    <div className="container previous-movies-group m-5">
+                    <div className="row">
+                        {this.state.previousMovies.map(prevMovie => 
+                        <div className="col-1 mr-5">
+                        <FooterMovie moviePoster = {prevMovie.movie?.Poster} 
+                                     movieTrailer = {prevMovie.trailer}
+                                     movie = {prevMovie.movie}
+                                     onPrevMovieClickHandler = {this.onPrevMovieClick}
+                        />
+                        </div>)
+                        }
+                    </div>
                 </div>
-            </div>
+                }
             </div>
         );
     }
