@@ -59,7 +59,7 @@ class MovieAppHeader extends React.Component{
             <div className="ml-5 mt-3 MovieAppHeader">
                 <form onSubmit={this.handleOnSubmit}>
                     <div className="form-inline">
-                        <h3 className="col-12 p-1">What is this movie?</h3>
+                        <h3 className="col-12 p-1">Search movies</h3>
                         <div className="input-group">
                             <input type="text" placeholder="Title" className={`col-12 form-control  ${this.state.movieFound === true ? 'is-valid'  : this.state.movieFound === false ? 'is-invalid':''}`} onChange={this.handleMovieNameTextBoxOnChange} required/><br/>
                             <input type="text" placeholder="Year" className="col-3 form-control" onChange={this.handleMovieYearTextBoxOnChange}/><br/>

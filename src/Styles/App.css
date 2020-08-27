@@ -5,8 +5,13 @@
 }
 
 .app{
-    width: 90%;
+    width: 100%;
 }
+
+.movie{
+    max-width: 92%;
+}
+
 
 .MovieBriefInfoBox span{
     color: black;
@@ -43,4 +48,54 @@ body{
     position: relative; 
     top: -10px;
     cursor: pointer;
-} 
+}
+
+.nav-item{
+    list-style: none;
+}
+
+.nav-item a{
+    color: black;
+    font-size: 130%;
+}
+
+.nav-item a:hover {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+.navbar-row{
+    max-width: 100%;
+}
+
+.TopMovieItem img{
+    max-width: 100%;
+    height: auto;
+}
+
+.TopMovieItem .rating img{
+    max-width: 40%;
+    height: auto;
+    margin-right: 5px;
+}
+
+.TopMovieItem .rating span{
+    font-weight: bold;
+}
+
+.TopMovieItem a{
+    color: black;
+}
+
+.TopMovieItem a:hover{
+    color: #136CB2;
+}
+
+.TopMovies hr{
+    max-width: 50%;
+    margin-left: 0px;
+}
+
+.TopMovies .header span{
+    font-weight: bold;
+}
