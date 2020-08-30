@@ -91,6 +91,14 @@ body{
     color: #136CB2;
 }
 
+.TopMovies{
+    max-width: 70%;
+}
+
+.pagination{
+    max-width: 50%;
+}
+
 .TopMovies hr{
     max-width: 50%;
     margin-left: 0px;

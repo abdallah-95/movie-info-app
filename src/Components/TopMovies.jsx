@@ -1,5 +1,7 @@
 import React from 'react'
 import TopMoviesItem from './TopMoviesItem'
+import 'bootstrap/dist/js/bootstrap.bundle';
+
 
 export default class TopMovies extends React.Component{
 
@@ -133,22 +135,81 @@ export default class TopMovies extends React.Component{
         });
     }
 
+    numberOfItemsOnClick = async (e) => {
+        debugger;
+
+        this.setState({Loading:true});
+        let currentTopMovies = this.state.topMovies;
+
+        let numberOfItems = parseInt(e.target.dataset.value);
+
+        let trimStart = (this.state.currentPage - 1) * numberOfItems;
+        let trimEnd = trimStart + numberOfItems;
+
+        let trimmedData = currentTopMovies.slice(trimStart,trimEnd);
+        let currentMovies = trimmedData;
+        let totalPagesCount = Math.ceil(currentTopMovies.length / numberOfItems);
+
+        let currentPageMoviesData = [];
+        let response;
+
+        for(let i=0; i<currentMovies.length ; i++){  
+            response = await this.getMovieData(currentMovies[i].id.replace('/title/','').replace('/',''));
+            currentPageMoviesData.push({movie:response,
+                                        rating:currentMovies[i].chartRating,
+                                        ranking:currentTopMovies.findIndex((e) => e.id === currentMovies[i].id) + 1
+                                       })              
+        }
+
+        this.setState({
+            topMovies: currentTopMovies,
+            currentPageMovies: trimmedData,
+            currentPageMoviesData: currentPageMoviesData,
+            pages: totalPagesCount,
+            maxRight:this.state.maxNumberOfPages,
+            maxLeft:1,
+            Loading:false,
+            pageCount:numberOfItems
+        })
+    }
+
     render(){
         const listItems = [];
 
         for(let i=this.state.maxLeft; i<=this.state.maxRight ;i++){
-            listItems.push(<li key={i} class="page-item"><a class="page-link" href="#" data-value={i} onClick={this.onPageClick}>{i}</a></li>)       
+            listItems.push(<li key={i} className="page-item"><a className="page-link" href="#" data-value={i} onClick={this.onPageClick}>{i}</a></li>)       
         }
 
         return(
             <div className="ml-5 mt-3 TopMovies">
-                <h2>Top Rated Movies</h2>
+
+                <div className="row">
+                    <div className="col-4">
+                        <h2>Top Rated Movies</h2>
+                    </div>
+
+                    <div className="col-4">
+                        <div className="dropdown">
+                        <span><b>Number of items</b></span>:<button className="btn btn-secodary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {this.state.pageCount}
+                            </button>
+                            <div className="dropdown-menu" >
+                                <a className="dropdown-item" href="#" data-value="5" onClick={this.numberOfItemsOnClick}>5</a>
+                                <a className="dropdown-item" href="#" data-value="10" onClick={this.numberOfItemsOnClick}>10</a>
+                                <a className="dropdown-item" href="#" data-value="15" onClick={this.numberOfItemsOnClick}>15</a>
+                            </div>
+                        </div>
+                    </div>
+
+                        
+                    </div>
+                
                     
                     {
                     this.state.Loading === true ?
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
+                    <div className="d-flex justify-content-center">
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only">Loading...</span>
                         </div>
                     </div>
 
@@ -168,9 +229,6 @@ export default class TopMovies extends React.Component{
                                 </div>
                                 {
                                     this.state.currentPageMoviesData.map(movieData => <div><TopMoviesItem location={this.props.location} movieData={movieData}/> <hr/></div>)
-                                    // this.state.currentPageMovies.map(movie => 
-                                    // <li>{movie.id} {'=>'} {movie.chartRating}</li>
-                                    // )
                                 }
                             </div>
 
