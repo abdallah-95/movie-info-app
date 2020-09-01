@@ -27,7 +27,7 @@ class Movie extends React.Component{
                             <div className="col h-75 align-self-center">
                             <YouTubePlayer
                                 url={this.props.trailer}
-                                controls = "true"
+                                controls = {true}
                                 key={this.props.trailer}//in order to reload player with "trailer" state
                                 width="100%"
                                 height="100%"

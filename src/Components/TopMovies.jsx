@@ -188,7 +188,7 @@ export default class TopMovies extends React.Component{
                         <h2>Top Rated Movies</h2>
                     </div>
 
-                    <div className="col-4">
+                    <div className="col-lg-4 col-xl-3">
                         <div className="dropdown">
                         <span><b>Number of items</b></span>:<button className="btn btn-secodary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {this.state.pageCount}
@@ -207,7 +207,7 @@ export default class TopMovies extends React.Component{
                     
                     {
                     this.state.Loading === true ?
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex">
                         <div className="spinner-border" role="status">
                             <span className="sr-only">Loading...</span>
                         </div>

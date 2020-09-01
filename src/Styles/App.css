@@ -107,3 +107,8 @@ body{
 .TopMovies .header span{
     font-weight: bold;
 }
+
+.TopMovies .d-flex{
+    margin-left: 250px;
+    margin-top: 200px;
+}

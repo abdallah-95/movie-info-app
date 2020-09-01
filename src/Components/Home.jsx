@@ -3,6 +3,7 @@ import MovieAppHeader from './MovieAppHeader'
 import Movie from './Movie'
 import FooterMovie from './FooterMovie'
 import { withRouter } from "react-router";
+import {connect} from 'react-redux'
 
 
 class Home extends React.Component{
@@ -18,6 +19,7 @@ class Home extends React.Component{
     }
 
     getMovieTrailerVideoID = async (movieName, releaseDate) => {
+        debugger;
         let response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.REACT_APP_Google_API_KEY}&q=${movieName} trailer ${releaseDate != null ? releaseDate : ''}`,{
                                     method:"Get"
                                     }).then(response => response.json());
@@ -28,15 +30,27 @@ class Home extends React.Component{
     async componentWillMount(){
         debugger;
 
+        // let trailer = null;
+        // if(this.props.location?.state != null){
+        //     trailer = await this.getMovieTrailerVideoID(this.props.location?.state.Title,this.props.location?.state.Year);
+        //     trailer = `https://www.youtube.com/watch?v=${trailer}`;
+
+        // }
+
+        // this.setState({
+        //     movie:this.props.location?.state != null ? this.props.location?.state : null,
+        //     trailer:trailer
+        // })
+
         let trailer = null;
-        if(this.props.location?.state != null){
-            trailer = await this.getMovieTrailerVideoID(this.props.location?.state.Title,this.props.location?.state.Year);
+        if(this.props.topMovie != null){
+            trailer = await this.getMovieTrailerVideoID(this.props.topMovie.Title,this.props.topMovie.Year);
             trailer = `https://www.youtube.com/watch?v=${trailer}`;
 
         }
 
         this.setState({
-            movie:this.props.location?.state != null ? this.props.location?.state : null,
+            movie:this.props.topMovie != null ? this.props.topMovie : null,
             trailer:trailer
         })
         
@@ -111,4 +125,16 @@ class Home extends React.Component{
 }
 
 
-export default withRouter(Home)
+// export default withRouter(Home)
+
+const mapStateToProps = (state) => {
+    // console.log('Home top movie');
+    // console.log(state);
+
+    return {
+      topMovie: state.topMovie
+    };
+}
+
+
+export default connect(mapStateToProps,null)(Home)
