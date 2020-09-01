@@ -12,6 +12,7 @@ class Movie extends React.Component{
     //     //     movie:this.props.movie
     //     //  }
     // }
+
     render(){
         return(
             <div className="container mt-5 movie">
@@ -45,7 +46,18 @@ class Movie extends React.Component{
                 </div>
 
                 <div className="row mt-4">
-                    <div className="col-7" style={{fontWeight:"bold",fontSize:"15px"}}>
+
+                    <div className="col-12">
+
+                    { this.props.images.map(img => <img  alt="" src={img.url} className="movieImage"/>)}
+
+                    {/* <img alt="" src={this.props.movie?.Poster} style={{width:"150px"}}/>
+                    <img alt="" src={this.props.movie?.Poster} style={{width:"150px"}}/> */}
+                    </div>
+                </div>
+
+                <div className="row mt-4">
+                    <div className="col-6" style={{fontWeight:"bold",fontSize:"15px"}}>
                         <p>{this.props.movie.Awards}</p>
                     </div>
                 </div>
@@ -61,6 +73,7 @@ class Movie extends React.Component{
                     </div>
                 </div>
             </div>
+            
         );
     }
 }
