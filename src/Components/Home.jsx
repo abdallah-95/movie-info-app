@@ -116,7 +116,6 @@ class Home extends React.Component{
                       this.state.movie != null && this.state.movie?.Response === "True" &&
                         <Movie movie={this.state.movie} trailer={this.state.trailer} images={this.state.movieImages}/>
                 }
-                {/* <MovieAppFooter currentMovie={this.state.movie}/> */}
                 
                 {
                 this.state.movie != null && this.state.movie?.Response === "True" && !this.state.Loading &&
