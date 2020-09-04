@@ -92,7 +92,7 @@ body{
 }
 
 .TopMovies{
-    max-width: 70%;
+    max-width: 90%;
 }
 
 .pagination{
@@ -122,4 +122,13 @@ body{
     width: 100px;
     height: 100px;
     margin-right: 5px;
+}
+
+.movieImage:hover{
+    cursor: pointer;
+    outline-color: rgb(38 143 255 / 50%);
+    outline-width: 2px;
+    outline-style:solid ;
+
+    
 }

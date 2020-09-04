@@ -1,9 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import TopMoviesItem from './TopMoviesItem'
+import FooterMovie from './FooterMovie'
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 
-export default class TopMovies extends React.Component{
+class TopMovies extends React.Component{
 
     state = {
         topMovies: [],
@@ -173,6 +175,21 @@ export default class TopMovies extends React.Component{
         })
     }
 
+    onPrevMovieClick = (prevMovie, trailer, movieImages) => {
+        debugger;
+        this.setState({movie:prevMovie,
+                       trailer:trailer,
+                       movieImages
+                      });
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+
+    }
+
+
     render(){
         const listItems = [];
 
@@ -247,9 +264,34 @@ export default class TopMovies extends React.Component{
                         <a href="#" className="page-link" data-value={'l'} onClick={this.onPageClick}>Last</a>
                         </li>
                     </ul>
+
+                    <div className="container previous-movies-group m-1">
+                            <h5>History</h5>
+                        <div className="row">
+                            {this.props.history.map(prevMovie => 
+                            <div className="col-1 mr-5">
+                            <FooterMovie moviePoster = {prevMovie.movie?.Poster} 
+                                        movieTrailer = {prevMovie.trailer}
+                                        movie = {prevMovie.movie}
+                                        images = {prevMovie.movieImages}
+                                        onPrevMovieClickHandler = {this.onPrevMovieClick}
+                            />
+                            </div>)
+                            }
+                        </div>
+                    </div>
                 </div>
                 }
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        history: state.addMovieToHistory?.movieBrowsingHistory
+    }
+}
+
+export default connect(mapStateToProps,null)(TopMovies)
+

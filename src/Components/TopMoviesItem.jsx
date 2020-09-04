@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import displayTopMovieAction from '../redux/Actions'
+import {displayTopMovie} from '../redux/Actions'
 
 function TopMovieItem(props){
 debugger;
@@ -14,7 +14,7 @@ debugger;
             <span>{props.movieData.ranking}.</span>
             {/* <a href="#" >{props.movieData.movie.Title}</a> */}
             {/* <Link to={{pathname:`/${props.movieData.movie.Title}`,state:props.movieData.movie}} >{props.movieData.movie.Title}</Link> */}
-            <Link to={{pathname:`/${props.movieData.movie.Title}`}} onClick={() => {debugger; props.displayTopMovie(props.movieData.movie)}}>{props.movieData.movie.Title}</Link>
+            <Link to={{pathname:`/${props.movieData.movie.Title}`}} onClick={() => {props.displayTopMovie(props.movieData.movie)}}>{props.movieData.movie.Title}</Link>
 
             <span style={{marginLeft:"5px"}}>({props.movieData.movie.Year})</span>
             </div>
@@ -29,7 +29,7 @@ debugger;
 const mapDispatchToProps = (dispatch) => {
     console.log(dispatch);
 
-    return { displayTopMovie: (movie) => {dispatch(displayTopMovieAction(movie))} }
+    return { displayTopMovie: (movie) => {dispatch(displayTopMovie(movie))} }
 }
 
 export default connect(null, mapDispatchToProps)(TopMovieItem)

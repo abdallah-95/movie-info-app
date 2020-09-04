@@ -103,7 +103,7 @@ function Movie(props){
 
 const MovieImages = React.memo((props) => {
     return(
-            props.images.map((img,index) => <img  alt="" src={img.url} className="movieImage" onClick={() => props.openImageViewerCallback(index)}/>)
+            props.images?.map((img,index) => <img  alt="" src={img.url} className="movieImage" onClick={() => props.openImageViewerCallback(index)}/>)
     );
 })
 

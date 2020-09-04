@@ -4,6 +4,7 @@ import Movie from './Movie'
 import FooterMovie from './FooterMovie'
 import { withRouter } from "react-router";
 import {connect} from 'react-redux'
+import * as actions from '../redux/Actions'
 
 
 class Home extends React.Component{
@@ -14,7 +15,7 @@ class Home extends React.Component{
         this.state = {
             movie:null,
             trailer:null,
-            previousMovies:[],
+            // previousMovies:[],
             movieImages: [],
             Loading: null
         }
@@ -27,6 +28,24 @@ class Home extends React.Component{
                                     }).then(response => response.json());
         
         return response.error == null ? response.items[0].id.videoId : null;
+    }
+
+    async getMovieImages(imdbID){
+        debugger;
+
+        let response = await fetch(`https://imdb8.p.rapidapi.com/title/get-images?limit=7&tconst=${imdbID}`, {
+                                    "method": "GET",
+                                    "headers": {
+                                        "x-rapidapi-host": "imdb8.p.rapidapi.com",
+                                        "x-rapidapi-key": process.env.REACT_APP_x_rapidapi_key
+                                    }
+                                })
+                                .then(response => response.json())
+                                .catch(err => {
+                                    console.log(err);
+                                });
+        
+        return response?.images;
     }
 
     async componentWillMount(){
@@ -46,18 +65,39 @@ class Home extends React.Component{
         // })
 
         // handling passed movies from topMovies component
+
+        this.setState({
+            Loading: true
+        });
+
         let trailer = null;
+        let images = null;
+        // let prevMovies = this.state.previousMovies;
+
         if(this.props.topMovie != null){
             trailer = await this.getMovieTrailerVideoID(this.props.topMovie.Title,this.props.topMovie.Year);
             trailer = `https://www.youtube.com/watch?v=${trailer}`;
 
+            images = await this.getMovieImages(this.props.topMovie.imdbID)
+           
+            this.props.addMovieToHistory(this.props.topMovie, trailer, images);
+
+            // prevMovies.unshift({
+            //     movie:this.props.topMovie,
+            //     trailer,
+            //     movieImages:images
+            //     });
         }
 
         this.setState({
             movie:this.props.topMovie != null ? this.props.topMovie : null,
-            trailer:trailer
+            trailer:trailer,
+            movieImages: images,
+            Loading:false
+            // previousMovies: prevMovies
         })
-        
+
+        this.props.displayTopMovie(null);
     }
 
     changeLoadingState = (isLoading) =>{
@@ -69,17 +109,20 @@ class Home extends React.Component{
     updateMovieState = (movieData, trailerVideoID, movieImages) => {
         debugger;
 
-        let prevMovies = this.state.previousMovies;
-        if(movieData.Response !== "False"){
-        prevMovies.unshift({
-           movie:movieData,
-           trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
-           movieImages
-           });
-        }
+        // let prevMovies = this.state.previousMovies;
+        // if(movieData.Response !== "False"){
+        // prevMovies.unshift({
+        //    movie:movieData,
+        //    trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
+        //    movieImages
+        //    });
+        // }
+
+        this.props.addMovieToHistory(movieData,`https://www.youtube.com/watch?v=${trailerVideoID}`, movieImages);
+
         this.setState({movie:movieData,
                        trailer: `https://www.youtube.com/watch?v=${trailerVideoID}`,
-                       previousMovies: prevMovies,
+                    //    previousMovies: prevMovies,
                        movieImages
                     })
     }
@@ -122,7 +165,7 @@ class Home extends React.Component{
                     <div className="container previous-movies-group m-5">
                         <h5>History</h5>
                     <div className="row">
-                        {this.state.previousMovies.map(prevMovie => 
+                        {this.props.history.map(prevMovie => 
                         <div className="col-1 mr-5">
                         <FooterMovie moviePoster = {prevMovie.movie?.Poster} 
                                      movieTrailer = {prevMovie.trailer}
@@ -144,13 +187,25 @@ class Home extends React.Component{
 // export default withRouter(Home)
 
 const mapStateToProps = (state) => {
+    debugger;
     // console.log('Home top movie');
     // console.log(state);
 
     return {
-      topMovie: state.topMovie
+      topMovie: state.displayTopMovie?.topMovie,
+      history: state.addMovieToHistory?.movieBrowsingHistory
     };
 }
 
+const mapDispatchToProps = (dispatch) => {
+    debugger;
+    // console.log('Home top movie');
+    // console.log(state);
 
-export default connect(mapStateToProps,null)(Home)
+    return {
+      addMovieToHistory: (movie,trailer,movieImages) => { dispatch(actions.addMovieToHistory(movie,trailer,movieImages))},
+      displayTopMovie: (movie) => {dispatch(actions.displayTopMovie(movie))} 
+    };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home)
