@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {BrowserRouter}  from 'react-router-dom';
+// import {BrowserRouter}  from 'react-router-dom';
+import {HashRouter}  from 'react-router-dom';
 import {Provider} from 'react-redux'
 import Store from './redux/Store'
 // import * as serviceWorker from './serviceWorker';
@@ -11,11 +12,11 @@ import App from './Components/App'
 
 ReactDOM.render(
   // <React.StrictMode>
-  <BrowserRouter>
+  <HashRouter>
     <Provider store={Store}>
         <App />
     </Provider>
-  </BrowserRouter>,
+  </HashRouter>,
   // </React.StrictMode>,
   document.getElementById('root')
 );
