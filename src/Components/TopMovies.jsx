@@ -19,7 +19,7 @@ export default class TopMovies extends React.Component{
     }
 
     async getMovieData(id){
-        let movie = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}`)
+        let movie = await fetch(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${id}`)
         .then(response => response.json());  
 
         return movie;
