@@ -21,7 +21,7 @@ class MovieAppHeader extends React.Component{
 
         this.props.handleLoadingState(true);
 
-        var response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&t=${this.state.movieName}&y=${this.state.movieYear}`,{
+        var response = await fetch(`https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&t=${this.state.movieName}&y=${this.state.movieYear}`,{
             method:"Get"
         }).then(response => response.json());
 
