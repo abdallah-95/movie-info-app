@@ -1,7 +1,15 @@
 #sub1{
-    /* margin-left: 48%; */
-    /* width: 6%; */
+    margin-left: 20px;
+    width: 100px;
     color: white;
+}
+
+@media(max-width:575px){
+    #sub1{
+        /* margin-left: 48%; */
+        margin-top: 15px;
+        margin-left: 38%;
+    }
 }
 
 .app{
