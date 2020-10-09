@@ -194,7 +194,7 @@ class TopMovies extends React.Component{
         const listItems = [];
 
         for(let i=this.state.maxLeft; i<=this.state.maxRight ;i++){
-            listItems.push(<li key={i} className="page-item"><a className="page-link" href={`#${i}`} data-value={i} onClick={this.onPageClick}>{i}</a></li>)       
+            listItems.push(<li key={i} className="page-item"><a className="page-link" href={`#/top_movies/${i}`} data-value={i} onClick={this.onPageClick}>{i}</a></li>)       
         }
 
         return(
@@ -251,7 +251,7 @@ class TopMovies extends React.Component{
 
                     <ul className="pagination">
                         <li key="f" className="page-item">
-                        <a href="#1" className="page-link" data-value={'f'} onClick={this.onPageClick}>First</a>
+                        <a href="#/top_movies/1" className="page-link" data-value={'f'} onClick={this.onPageClick}>First</a>
                         </li>
 
                         {listItems}            
@@ -261,7 +261,7 @@ class TopMovies extends React.Component{
 
 
                         <li key="l" className="page-item">
-                        <a href={`#${this.state.pages}`} className="page-link" data-value={'l'} onClick={this.onPageClick}>Last</a>
+                        <a href={`#/top_movies/${this.state.pages}`} className="page-link" data-value={'l'} onClick={this.onPageClick}>Last</a>
                         </li>
                     </ul>
 
